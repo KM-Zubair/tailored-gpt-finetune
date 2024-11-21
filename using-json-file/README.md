@@ -70,8 +70,8 @@ fine-tuning-project/
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/fine-tuning-project.git
-   cd fine-tuning-project
+   git clone https://github.com/KM-Zubair/tailored-gpt-finetune.git
+   cd using-json-file
    ```
 
 2. Install required dependencies:
