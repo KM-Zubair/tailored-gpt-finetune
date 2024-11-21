@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload JSON Dataset</title>
+</head>
+<body>
+    <h1>Upload JSON Dataset</h1>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% elif success %}
+        <p style="color: green;">File uploaded successfully to {{ filepath }}!</p>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data">
+        <label for="json_file">Choose a JSONL file:</label>
+        <input type="file" name="json_file" required>
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>

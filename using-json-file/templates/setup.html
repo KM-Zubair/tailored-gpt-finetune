@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup OpenAI API Key</title>
+</head>
+<body>
+    <h1>Setup OpenAI API Key</h1>
+    {% if success %}
+        <p style="color: green;">API Key Set Successfully!</p>
+    {% endif %}
+    <form method="post">
+        <label for="api_key">Enter your OpenAI API Key:</label>
+        <input type="text" name="api_key" required>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

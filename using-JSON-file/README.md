@@ -1,6 +1,6 @@
 # Fine-Tuning with OpenAI Models
 
-This project demonstrates how to fine-tune OpenAI models using a structured, step-by-step approach. It covers preparing a dataset, fine-tuning a model, and using the fine-tuned model for specific tasks.
+This project demonstrates how to fine-tune OpenAI models using a structured, step-by-step approach. It includes a web-based user interface (UI) built with Flask for an intuitive and interactive workflow.
 
 ---
 
@@ -15,7 +15,7 @@ This project demonstrates how to fine-tune OpenAI models using a structured, ste
   - [Step 1: Setup Environment](#step-1-setup-environment)
   - [Step 2: Prepare Dataset](#step-2-prepare-dataset)
   - [Step 3: Fine-Tune Model](#step-3-fine-tune-model)
-  - [Step 4: Use the Fine-Tuned Model](#step-4-use-the-fine-tuned-model)
+  - [Step 4: Test Fine-Tuned Model](#step-4-test-fine-tuned-model)
   - [Step 5: Analyze and Manage Models](#step-5-analyze-and-manage-models)
 - [Dependencies](#dependencies)
 
@@ -23,13 +23,9 @@ This project demonstrates how to fine-tune OpenAI models using a structured, ste
 
 ## Overview
 
-This repository provides a complete workflow for fine-tuning OpenAI models with your custom dataset. The steps include data preparation, fine-tuning using OpenAI's API, and testing the fine-tuned model.
-
-### Key Highlights:
-- Create and preprocess datasets in JSONL format.
-- Fine-tune OpenAI models such as `curie` or `davinci`.
-- Test the model with a user-friendly script.
-- Manage and analyze fine-tuned models.
+This repository provides two approaches to fine-tuning OpenAI models:
+1. A **command-line workflow** with modular Python scripts.
+2. A **Flask-based web application** for an interactive and user-friendly experience.
 
 ---
 
@@ -37,8 +33,9 @@ This repository provides a complete workflow for fine-tuning OpenAI models with 
 
 - **Data Preparation**: Convert data into JSONL format and preprocess it.
 - **Model Fine-Tuning**: Use OpenAI API to fine-tune models with a custom dataset.
-- **Testing**: Interact with the fine-tuned model using Python.
+- **Testing**: Interact with the fine-tuned model using Python or the UI.
 - **Automation**: Automate the workflow with a single script (`run.sh`).
+- **Web UI**: Intuitive interface to upload datasets, set up API keys, and test models.
 
 ---
 
@@ -46,17 +43,22 @@ This repository provides a complete workflow for fine-tuning OpenAI models with 
 
 ```
 fine-tuning-project/
-├── setup.py               # Environment setup script
-├── data_prep.py           # Script to create JSONL dataset
-├── prepare_data.sh        # CLI script to preprocess data
-├── fine_tune.py           # Script to fine-tune the model
-├── use_model.py           # Script to test the fine-tuned model
-├── analyze_model.py       # Script to analyze model results
-├── list_models.py         # Script to list available models
-├── delete_model.py        # Script to delete a fine-tuned model
-├── run.sh                 # Script to run the workflow sequentially
-├── data.jsonl             # Initial dataset (example)
-└── data_prepared.jsonl    # Processed dataset for fine-tuning
+├── app.py               # Flask-based UI backend
+├── setup.py             # Environment setup script
+├── data_prep.py         # Script to create JSONL dataset
+├── prepare_data.sh      # CLI script to preprocess data
+├── fine_tune.py         # Script to fine-tune the model
+├── use_model.py         # Script to test the fine-tuned model
+├── analyze_model.py     # Script to analyze model results
+├── list_models.py       # Script to list available models
+├── delete_model.py      # Script to delete a fine-tuned model
+├── run.sh               # Script to run the workflow sequentially
+├── templates/           # HTML templates for Flask UI
+│   ├── index.html       # Main dashboard
+│   ├── setup.html       # API key setup page
+│   ├── upload.html      # Dataset upload page
+│   ├── test.html        # Model testing page
+└── uploads/             # Directory to store uploaded files
 ```
 
 ---
@@ -71,10 +73,10 @@ fine-tuning-project/
 
 2. Install required dependencies:
    ```bash
-   pip install openai
+   pip install flask openai
    ```
 
-3. Set your OpenAI API key:
+3. Set your OpenAI API key manually (for scripts):
    ```bash
    export OPENAI_API_KEY="your-api-key"
    ```
@@ -83,51 +85,62 @@ fine-tuning-project/
 
 ## How to Run
 
-To run the entire workflow sequentially, execute the `run.sh` script:
+### Running the Web Application
+1. Start the Flask app:
+   ```bash
+   python app.py
+   ```
+2. Open your browser at `http://127.0.0.1:5000/`.
+
+3. Use the UI for:
+   - Setting up the API key.
+   - Uploading a dataset (JSONL format).
+   - Testing the fine-tuned model.
+
+### Running the Command-Line Workflow
+Execute the `run.sh` script to automate the workflow:
 ```bash
 ./run.sh
 ```
-
-Alternatively, you can run individual scripts for specific steps.
 
 ---
 
 ## Workflow Details
 
 ### Step 1: Setup Environment
-- Run `setup.py` to set up the Python environment and configure the OpenAI API key.
-- Prompts you to enter your OpenAI API key.
+- **Command Line**: Run `setup.py` to set up the environment and configure the OpenAI API key.
+- **UI**: Navigate to the "Setup OpenAI API Key" page.
 
 ### Step 2: Prepare Dataset
-- Use `data_prep.py` to create a JSONL file for fine-tuning.
-- Preprocess the dataset with `prepare_data.sh` to make it compatible with OpenAI's fine-tuning requirements.
+- **Command Line**: Use `data_prep.py` and `prepare_data.sh` to prepare the dataset.
+- **UI**: Upload the dataset via the "Upload Dataset" page.
 
 ### Step 3: Fine-Tune Model
-- Run `fine_tune.py` to fine-tune the model with the processed dataset.
-- Outputs the name of the fine-tuned model.
+- **Command Line**: Run `fine_tune.py` to start fine-tuning.
+- **UI**: Use the "Fine-Tune Model" functionality (coming soon for UI).
 
-### Step 4: Use the Fine-Tuned Model
-- Use `use_model.py` to test the fine-tuned model.
-- Input a prompt to generate responses from the model.
+### Step 4: Test Fine-Tuned Model
+- **Command Line**: Run `use_model.py` to interact with the fine-tuned model.
+- **UI**: Use the "Test Fine-Tuned Model" page.
 
 ### Step 5: Analyze and Manage Models
-- Use `analyze_model.py` to analyze the fine-tuning process and results.
-- List all fine-tuned models with `list_models.py`.
-- Delete models no longer needed using `delete_model.py`.
+- **Command Line**:
+  - Analyze results: `analyze_model.py`
+  - List models: `list_models.py`
+  - Delete models: `delete_model.py`
 
 ---
 
 ## Dependencies
 
 - [Python 3.7+](https://www.python.org/)
+- [Flask](https://flask.palletsprojects.com/)
 - [OpenAI Python Library](https://pypi.org/project/openai/)
 
 Install dependencies:
 ```bash
-pip install openai
+pip install flask openai
 ```
-
----
 
 
 ## Contributions
@@ -135,4 +148,3 @@ pip install openai
 Contributions are welcome! Please fork this repository and submit a pull request for any improvements or additional features.
 
 ---
-
