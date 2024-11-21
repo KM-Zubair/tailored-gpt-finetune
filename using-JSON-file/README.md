@@ -4,6 +4,9 @@ This project demonstrates how to fine-tune OpenAI models using a structured, ste
 
 ---
 
+## [Presentation Slides](https://docs.google.com/presentation/d/1GpgDGIEe_-IX_jhdtcWa3do72LkVbU0DNi5sbLN0ky4/edit?usp=sharing)
+
+
 ## Table of Contents
 
 - [Overview](#overview)
