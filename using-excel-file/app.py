@@ -4,17 +4,11 @@ from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
-# Initialize OpenAI API keys
-def init_api():
-    with open(".env") as env:
-        for line in env:
-            key, value = line.strip().split("=")
-            os.environ[key] = value
 
-    openai.api_key = os.environ.get("API_KEY")
-    openai.organization = os.environ.get("ORG_ID")
 
-init_api()
+openai.api_key = os.environ.get("API_KEY")
+openai.organization = os.environ.get("ORG_ID")
+
 
 # Define model ID
 model = "ada:ft-learninggpt:drug-malady-data-2023-02-21-20-36-07"
